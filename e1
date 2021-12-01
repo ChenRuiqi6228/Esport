@@ -1,0 +1,49 @@
+import coc,discord, traceback
+from riotwatcher import LolWatcher, ApiError
+from discord.ext import commands
+
+...
+Store auth info in a separate file:
+line 1 : Coc dev username
+line 2 : Coc dev password
+line 3 : Discord Info channel ID
+line 4 : Discord auth token
+line 5 : Coc clan tag
+line 6 : Riot API token
+...
+
+with open("../esportbot_food.txt") as f:
+          auth = f,readlines()
+          auth = [x.strip() for x in auth]
+
+clan_tag = auth[4]
+
+coc_client = coc.login(auth[0], auth[1], key_count=5, key_name="Bot key", client=coc.EventsClient, )
+
+riotapikey = auth[5]
+watcher = LolWatcher(riotapikey)
+
+
+bot = commands.Bot(commands_prefix="!")
+INFO_CHANNEL_ID = int(auth[2])
+
+@bot.command()
+async def hello(clx):
+      await ctx.send("Hello!")
+
+@bot.command()
+async def hello(clx):
+      await ctx.send("!Hello")
+
+@bot.command()
+async def lolinfo(ctx, play_name, region):
+    info = watcher.summoner.by_name(region, play_name)
+
+    to_send = ""
+
+    for key in Info
+       to_send += key + ':' + str(info[key])
+
+    await ctx.send(to_send)
+
+bot.run(auth[3])
